@@ -28,6 +28,7 @@ int get_next_line(const int fd, char **line) {
             return 0;
         size = read(fd, buffer, BUFF_SIZE);
         if (size <= 0) {
+            free(buffer);
             return size;
         }
         cheak_fd = fd;
@@ -41,7 +42,10 @@ int get_next_line(const int fd, char **line) {
     line_len = count_line(buffer, i);
     *line = (char *)malloc(line_len + 1 * sizeof(char));
     if (!line)
+    {
+        free(buffer);
         return 0;
+    }
 
     while (buffer[i] == '\n' && buffer[i])
         i++;
