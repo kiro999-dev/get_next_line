@@ -1,13 +1,14 @@
-
-#ifndef GET_NEXT
-#define GET_NEXT
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#define BUFF_SIZE 8600
+#include <stdio.h>
+#define buffsize 10
 
-int get_next_line(const int fd,char **line);
- char *buffer;
- int size;
-
-#endif
+typedef struct list
+{
+    char *buffer_str;
+    struct list *next;
+}list;
+list *find_last_node(list *head);
+void    add_to_list(list **head,char *buffer);
+void    clean_all(list **head);
